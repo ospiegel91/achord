@@ -1,0 +1,6 @@
+.songsContainer{
+    height: 500px;
+    overflow-y: scroll;
+    margin: 1% auto 1% auto;
+    width: 85%;
+}

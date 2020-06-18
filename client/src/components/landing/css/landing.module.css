@@ -1,0 +1,29 @@
+.container{
+    padding: 2%;
+    text-align: center;
+}
+
+.welcomeText{
+    margin: 2% 0 2% 0;
+    font-size: 56px;
+}
+
+.optionHeading{
+    margin-top: 14%;
+    margin-bottom: 6%;
+}
+
+.secondaryHeading{
+    margin-bottom: 6%;
+}
+
+@media only screen and (max-width: 600px) {
+    .welcomeText{
+        margin: 2% 0 2% 0;
+        font-size: 42px;
+    }
+
+    .secondaryHeading{
+        margin-bottom: 4%;
+    }
+}

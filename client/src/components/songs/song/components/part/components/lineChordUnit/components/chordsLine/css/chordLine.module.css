@@ -1,0 +1,15 @@
+.chordsContainer{
+    position: relative;
+    background-image: url('https://images-na.ssl-images-amazon.com/images/I/51t%2Bo%2BZtRxL._AC_.jpg');
+    width: 100%;
+    height: 20px;
+    background-size: contain;
+}
+
+.chordsContainerPlay{
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background-size: contain;
+    cursor: crosshair;
+}

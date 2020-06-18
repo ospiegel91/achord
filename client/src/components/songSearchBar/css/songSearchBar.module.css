@@ -1,0 +1,11 @@
+.container{
+    margin: 1% auto 2% auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40%;
+}
+
+.searchText{
+    margin: 0;
+}

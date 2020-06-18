@@ -1,0 +1,36 @@
+.container{
+    display: flex;
+    flex-direction: row;
+}
+
+.lineMenu{
+    z-index: 11;
+    position: fixed,
+}
+
+.chordsContainer{
+    width: 88%;
+}
+
+.optionsContainer{
+    width: 8%;
+    display: flex;
+    flex-direction: column;
+    max-height: 80px;
+}
+.optionsContainerSelect {
+    background-color: rgba(255,255,255,0.9);
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #23f06e;
+    border-radius: 2px;
+    height: 80%;
+    margin: auto 0 auto 6px;
+}
+
+.optionBtn{
+    font-size: 0.4em;
+    padding: 0;
+    max-height: 20px;
+    min-height: 20px;
+}

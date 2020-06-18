@@ -1,0 +1,111 @@
+.songContainer{
+    padding: 1%;
+}
+
+.songContainer h4{
+    margin: 0.2% 0 1% 0;
+}
+
+.partsContainer{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.toolBarContainer{
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    padding: 0 1.5%;
+    align-items: top;
+}
+
+.songHeading{
+    font-size: 2em;
+}
+
+input[type=range] {
+    position: relative;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    margin: 4px 0;
+    padding: 0;
+}
+
+fieldset {
+    padding: 0.2%;
+}
+
+label {
+    font-size: 0.6em;
+    margin:0;
+}
+em{
+    font-size: 0.7em;
+}
+.playOptionsContainer{
+    width: 286px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.copyTools{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.symbolContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.symbolsMenuHeading{
+    font-size: 0.5em;
+}
+
+.symbolButton{
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    margin: 0 2%;
+    font-size: 0.9em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slideButton{
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    margin: 0 12%;
+    font-size: 0.9em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+
+}
+
+.slideButton:hover{
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    margin: 0 12%;
+    font-size: 0.9em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+    color: rgb(29, 249, 245);
+
+}
+
+
