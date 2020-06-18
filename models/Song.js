@@ -24,6 +24,7 @@ const partSchema = new Schema({
 
 const songSchema = new Schema({
     _user: {type: Schema.Types.ObjectId, ref: 'User'},
+    published: {type: Boolean, default: false},
     name: String,
     parts: [partSchema],
     direction: {type: String, default: 'ltr'},

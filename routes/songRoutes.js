@@ -5,9 +5,85 @@ const Song = mongoose.model('songs');
 const Line = mongoose.model('lines');
 const Chord = mongoose.model('chords');
 
+
+const nextChordDict = {
+    "cb": ["C", "Bb"],
+    "c": ["Db", "B"],
+    "c#": ["D", "C"],
+    "db": ["D", "C"],
+    "d": ["Eb", "C#"],
+    "d#": ["E", "D"],
+    "eb": ["E", "D"],
+    "e": ["F", "D#"],
+    "e#": ["Gb", "E"],
+    "fb": ["F", "D#"],
+    "f": ["Gb", "E"],
+    "f#": ["G", "F"],
+    "gb": ["G", "F"],
+    "g": ["Ab", "F#"],
+    "g#": ["A", "G"],
+    "ab": ["A", "G"],
+    "a": ["Bb", "G#"],
+    "a#": ["B", "A"],
+    "bb": ["B", "A"],
+    "b": ["C", "A#"],
+    "b#": ["Db", "B"]
+};
+
 module.exports = app => {
     app.get('/api/songs/song/:id', requireLogin, async (req, res) => {
         const song = await Song.findById(req.params.id);
+        res.send(song);
+    });
+
+    app.get('/api/songs/song/:id/shift', requireLogin, async (req, res) => {
+        function convertChordBase(chord){
+            const value = chord.value.toLowerCase();
+            if(value.length <= 1){
+                return nextChordDict[value][0]
+            };
+            console.log(value.charAt(1))
+            if (value.charAt(1) == "#" || value.charAt(1) == "b"){
+                let ext = value.slice(2);
+                console.log("ext # b slice")
+                console.log(ext)
+                return nextChordDict[value.slice(0,2)][0] + ext
+            };
+            let ext = value.slice(1);
+            return nextChordDict[value.charAt(0)][0] + ext
+        };
+        function convertChordBaseValue(value){
+            const index = value.indexOf('/');
+            console.log(index)
+            if(index > -1){
+                let bass = value.slice(index+1);
+                console.log("bass");
+                console.log(bass);
+                console.log("processed chord");
+                console.log(value.slice(0, index) + nextChordDict[bass][0]);
+                return value.slice(0, index) + '/' + nextChordDict[bass][0];
+            }; 
+            return value;
+        };
+        const song = await Song.findById(req.params.id);
+        for(let part of song.parts){
+            for(let line of part.lyrics){
+                for(let chord of line.chords){
+                    console.log(chord.value)
+                    let base = convertChordBase(chord);
+                    newChord = convertChordBaseValue(base);
+                    chord.value = newChord;
+                };
+            };
+        };
+        song.save();
+        res.send(song);
+    });
+
+    app.get('/api/songs/song/:id/publish', requireLogin, async (req, res) => {
+        const song = await Song.findById(req.params.id);
+        song.published = true;
+        song.save();
         res.send(song);
     });
 
@@ -16,9 +92,20 @@ module.exports = app => {
         res.send(songs);
     });
 
+    app.get('/api/publishedSongs', async(req, res)=>{
+        const songs = await Song.find({published: true}).select({parts: 0});
+        res.send(songs);
+    });
+
     app.post('/api/songs/search', requireLogin, async (req, res) => {
         const text = req.body.data;
-        const songs = await Song.find({name: { "$regex": text }}).select({parts: 0});
+        const songs = await Song.find({ name: { "$regex": text }}).select({parts: 0});
+        res.send(songs);
+    });
+
+    app.post('/api/publishedSongs/search', async (req, res) => {
+        const text = req.body.data;
+        const songs = await Song.find({published: true, name: { "$regex": text }}).select({parts: 0});
         res.send(songs);
     });
 
@@ -37,6 +124,7 @@ module.exports = app => {
         song.save();
         console.log('song id is: ')
         console.log(song._id)
+        res.redirect('/songs/song/' + song._id);
     });
 
     app.post('/api/line_chord_unit/words', requireLogin, async (req, res) => {
@@ -87,6 +175,21 @@ module.exports = app => {
         const part = await song.parts.id(partID);
         const line = await part.lyrics.id(lineID);
         line.chords = [];
+        song.save()
+        res.send(song)
+    });
+
+    app.post('/api/line_chord_unit/chord/paste', requireLogin, async (req, res) => {
+        const chords = JSON.parse(req.body.chords).chords;
+        console.log('chords:  ')
+        console.log(chords)
+        const lineID = req.body.line;
+        const songID = req.body.song;
+        const partID = req.body.part;
+        const song = await Song.findById(songID);
+        const part = await song.parts.id(partID);
+        const line = await part.lyrics.id(lineID);
+        line.chords = chords.map((chord)=> new Chord({value: chord.value, location: chord.location}));
         song.save()
         res.send(song)
     });
