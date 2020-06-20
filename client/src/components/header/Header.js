@@ -10,9 +10,9 @@ class Header extends Component {
             case null:
                 return;
             case false:
-                return <div><a className={styles.googleAuthButton} href="/auth/google"></a>Login with Google</div>;
+                return <div><a className={styles.googleAuthButton} href="/auth/google">Login with Google</a></div>;
             default:
-                return <div><a className={styles.googleAuthButton} href="/api/logout">Logout</a></div>
+                return <div><a className={styles.googleAuthButton} href="/api/logout">Logout</a></div>;
         }
     }
 
