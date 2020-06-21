@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateChord } from '../../../../../../../../../../../actions';
+import { updateChord, removeChord } from '../../../../../../../../../../../actions';
 import styles from './css/chord.module.css'
 
 
@@ -9,13 +9,20 @@ class Chord extends Component {
 
     handleTyping = (e) => {
         var key = e.keyCode || e.charCode;
-        console.log(key)
-        if(key == 8 || key == 46 && this.state.inputWidth > 0){
+        if((key == 8 || key == 46) && e.target.value == ""){
+            const values = {
+                song: this.props.song._id, 
+                part: this.props.partID, 
+                line: this.props.line._id,
+                chord: this.props.chord._id,
+            }
+            return this.props.removeChord(values);
+        }
+        if((key == 8 || key == 46) && this.state.inputWidth > 0){
             return this.setState({
                 inputWidth: this.state.inputWidth - 1
             });
         } else if(4 < this.state.inputWidth < 13){
-            console.log('increase!')
             return this.setState({
                 inputWidth: this.state.inputWidth + 1
             });
@@ -56,6 +63,6 @@ function mapStateToProps({song}){
 }
 
 
-export default connect(mapStateToProps, {updateChord})(Chord);
+export default connect(mapStateToProps, {updateChord, removeChord})(Chord);
 
 

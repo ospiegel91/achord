@@ -42,11 +42,8 @@ module.exports = app => {
             if(value.length <= 1){
                 return nextChordDict[value][0]
             };
-            console.log(value.charAt(1))
             if (value.charAt(1) == "#" || value.charAt(1) == "b"){
                 let ext = value.slice(2);
-                console.log("ext # b slice")
-                console.log(ext)
                 return nextChordDict[value.slice(0,2)][0] + ext
             };
             let ext = value.slice(1);
@@ -54,13 +51,8 @@ module.exports = app => {
         };
         function convertChordBaseValue(value){
             const index = value.indexOf('/');
-            console.log(index)
             if(index > -1){
                 let bass = value.slice(index+1);
-                console.log("bass");
-                console.log(bass);
-                console.log("processed chord");
-                console.log(value.slice(0, index) + nextChordDict[bass][0]);
                 return value.slice(0, index) + '/' + nextChordDict[bass][0];
             }; 
             return value;
@@ -122,8 +114,6 @@ module.exports = app => {
             }})
         });
         song.save();
-        console.log('song id is: ')
-        console.log(song._id)
         res.redirect('/songs/song/' + song._id);
     });
 
@@ -154,14 +144,12 @@ module.exports = app => {
     });
 
     app.post('/api/line_chord_unit/dir', requireLogin, async (req, res)=>{
-        console.log('hello from server')
         const lineID = req.body.line;
         const songID = req.body.song;
         const partID = req.body.part;
         const song = await Song.findById(songID);
         const part = await song.parts.id(partID);
         const line = await part.lyrics.id(lineID);
-        console.log(line)
         line.direction == 'rtl' ? line.direction = 'ltr' : line.direction = 'rtl';
         song.save()
         res.send(song)     
@@ -203,13 +191,24 @@ module.exports = app => {
         const song = await Song.findById(songID);
         const part = await song.parts.id(partID);
         const line = await part.lyrics.id(lineID);
-        console.log(line)
-        console.log(chordID)
         const chord = await line.chords.id(chordID);
         chord.value = value;
         song.save()
         res.send(song)
     });
+
+    app.post('/api/line_chord_unit/chord/remove', requireLogin, async(req, res)=>{
+        const chordID = req.body.chord;
+        const lineID = req.body.line;
+        const songID = req.body.song;
+        const partID = req.body.part;
+        const song = await Song.findById(songID);
+        const part = await song.parts.id(partID);
+        const line = await part.lyrics.id(lineID);
+        await line.chords.id(chordID).remove();
+        song.save()
+        res.send(song);
+    })
 
 
     app.post('/api/line_chord_unit/add', requireLogin, async (req, res) => {

@@ -54,7 +54,6 @@ export const insertChord = (values) =>  async dispatch => {
 }
 
 export const changeDirection = (values) => async dispatch => {
-        console.log('xxxxxxxxxxxxx ss s s s')
         const res = await axios.post('/api/line_chord_unit/dir', values);
         dispatch({ type: FETCH_SONG, payload: res.data});        
 }
@@ -71,6 +70,11 @@ export const pasteChords = (values) =>  async dispatch => {
 
 export const updateChord = (values) =>  async dispatch => {
         const res = await axios.post('/api/line_chord_unit/chord/value', values);
+        dispatch({ type: FETCH_SONG, payload: res.data});
+}
+
+export const removeChord = (values) =>  async dispatch => {
+        const res = await axios.post('/api/line_chord_unit/chord/remove', values);
         dispatch({ type: FETCH_SONG, payload: res.data});
 }
 
