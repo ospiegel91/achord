@@ -16,14 +16,18 @@ class ChordsLine extends Component {
             console.log('exit!')
             return;
         }
-        const distance = e.clientX - this.chordContainer.current.offsetLeft;
-        const percentLeft = Math.round((distance/this.chordContainer.current.clientWidth)*100);
+        console.log(this.chordContainer.current)
+        console.log(this.chordContainer.current.getBoundingClientRect())
+        const left = e.clientX - this.chordContainer.current.getBoundingClientRect().left;
+
+        console.log(left)
         const values = {
             song: this.props.song._id, 
             part: this.props.partID, 
             line: this.props.line._id,
-            location: percentLeft,
+            location: left,
         };
+        console.log(values);
         this.props.insertChord(values);
     }
 

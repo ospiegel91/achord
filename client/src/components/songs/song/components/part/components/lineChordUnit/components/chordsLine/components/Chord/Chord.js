@@ -48,7 +48,7 @@ class Chord extends Component {
         console.log(defaultInputValue)
         return (
             <div 
-                style={{left: this.props.left+'%', 
+                style={{left: this.props.left+'px', 
                         width: this.state.inputWidth+'ch'}} 
                         className={styles.chordBox}
             >

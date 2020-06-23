@@ -131,6 +131,7 @@ module.exports = app => {
     });
 
     app.post('/api/line_chord_unit/chord/new', requireLogin, async (req, res) => {
+        console.log("hello from chord");
         const location = req.body.location;
         const lineID = req.body.line;
         const songID = req.body.song;
@@ -139,7 +140,8 @@ module.exports = app => {
         const part = await song.parts.id(partID);
         const line = await part.lyrics.id(lineID);
         line.chords.push(new Chord({location: location}))
-        song.save()
+        song.save();
+        console.log(line.chords)
         res.send(song)
     });
 
