@@ -11,5 +11,5 @@
     padding: 0;
     box-shadow: none;
     box-sizing: content-box;
-    transition: box-shadow .3s, border .3s;
+    font-family: 'Indie Flower', cursive !important;
 }

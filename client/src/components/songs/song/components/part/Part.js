@@ -18,7 +18,6 @@ class Part extends Component {
         const display = this.props.display ? 'block' : 'none'
         return (
             <div style={{display: display}} className="col-sm-6 col-xs-12" >
-                <p style={{marginBottom: '0.3%'}}>part</p>
                 <div>
                     {this.renderPartLines()}
                 </div>

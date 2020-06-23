@@ -74,15 +74,13 @@ class Song extends Component {
     renderPlayStopButtons(){
         if(this.state.inPlay){
             return (
-                <button style={{margin: "auto 1%",}} onClick={this.handleStopSong} className="red white-text btn-flat">
-                    Cancel
+                <button onClick={this.handleStopSong} className="red white-text btn text-center">
                     <i className="material-icons white-text right">stop_circle</i>
                 </button>
             )
         }
         return (
-            <button style={{margin: "auto 1%",}} onClick={this.handlePlaySong} className="green white-text btn-flat">
-                Play Song
+            <button style={{textAlign: "center"}} onClick={this.handlePlaySong} className="green white-text btn">
                 <i className="material-icons white-text right">play_circle_filled</i>
             </button>
         )
@@ -111,7 +109,7 @@ class Song extends Component {
                         </div>
                     </div>
                     <div className={styles.copyTools}>
-                        <h7 className={styles.symbolsMenuHeading}>commonly used symbols</h7>
+                        <h7 className={styles.symbolsMenuHeading}>Click to Copy</h7>
                         <div className={styles.symbolContainer}>
                             <button className={styles.symbolButton} onClick={() => {navigator.clipboard.writeText("ø")}}>ø</button>
                             <button className={styles.symbolButton} onClick={() => {navigator.clipboard.writeText("o")}}>o</button>

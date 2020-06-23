@@ -16,10 +16,11 @@ class Line extends Component {
 
 
     render(){
-        const { line } = this.props;
+        const { line, inPlay } = this.props;
+        const borderBottom = inPlay ? "none" : "1px solid black";
         const inputClass = styles.inputLine + " browser-default"
         return (
-            <input className={inputClass} onBlur={this.handleLineWordsChange} type="text" key={line._id} defaultValue={line.words}></input>
+            <input style={{borderBottom: borderBottom}} className={inputClass} onBlur={this.handleLineWordsChange} type="text" key={line._id} defaultValue={line.words}></input>
         )
     }
 }

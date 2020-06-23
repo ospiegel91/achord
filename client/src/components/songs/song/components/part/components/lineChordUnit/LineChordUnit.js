@@ -99,14 +99,15 @@ class LineChordUnit extends Component {
 
     }
     render(){
+        const optionsContainerDisplay = this.props.inPlay ? "none" : "block";
         const directionOption = this.props.line.direction == "rtl" ? "ltr" : "rtl";
         return (
             <div dir={this.props.line.direction} className={styles.container}>
                 <div className={styles.chordsContainer}>
                     <ChordsLine inPlay={this.props.inPlay} partID={this.props.partID} line={this.props.line}></ChordsLine>
-                    <Line partID={this.props.partID} line={this.props.line}></Line>
+                    <Line inPlay={this.props.inPlay} partID={this.props.partID} line={this.props.line}></Line>
                 </div>
-                <div className={styles.optionsContainer}>
+                <div style={{display: optionsContainerDisplay}} className={styles.optionsContainer}>
                     <select className={styles.optionsContainerSelect} onChange={this.handleOptionSelected} style={{display: 'block'}} >
                         <option >
                         </option>
